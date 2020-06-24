@@ -1,28 +1,41 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <b-navbar type="is-warning">
+      <template slot="brand">
+        <b-navbar-item tag="router-link" :to="{ path: '/' }">Password Manager</b-navbar-item>
+      </template>
+      <template slot="start">
+        <b-navbar-item :to="{ path: '/' }" :active="path  == '/'">Home</b-navbar-item>
+      </template>
+    </b-navbar>
+    <router-view />
   </div>
 </template>
-
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
+  data() {
+    return {
+      path: this.$route && this.$route.path
+    };
+  },
+  watch: {
+    $route(route) {
+      this.path = route.path;
+    }
   }
-}
+};
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+<style lang="scss">
+.page {
+  padding: 20px;
+}
+button {
+  margin-right: 10px;
+}
+.center {
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+}
+h1 {
+  font-size: 32px !important;
 }
 </style>
